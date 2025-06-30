@@ -35,18 +35,19 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <a href="{{ route('tasks.edit', $task) }}" class="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:bg-blue-600 transition duration-150 ease-in-out inline-block">Edit</a>
-
-                                            <form action="{{ route('tasks.destroy', $task) }}"
-                                                  class="inline-block"
-                                                  method="POST"
-                                                  onsubmit="return confirm('Are You Sure?')"
-                                            >
-                                                @csrf
-                                                @method('DELETE')
-                                                <button
-                                                    type="submit"
-                                                    class="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out">Delete</button>
-                                            </form>
+                                            @can(\App\Enums\PermissionEnum::DELETE_TASKS->value)
+                                                <form action="{{ route('tasks.destroy', $task) }}"
+                                                      class="inline-block"
+                                                      method="POST"
+                                                      onsubmit="return confirm('Are You Sure?')"
+                                                >
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button
+                                                        type="submit"
+                                                        class="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out">Delete</button>
+                                                </form>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach
